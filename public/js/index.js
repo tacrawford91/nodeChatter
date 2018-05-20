@@ -8,12 +8,17 @@ socket.on('disconnect', ()=>{
 
 socket.on('newMessage', function(message){
     console.log('New Message',message);
+    let newest = $('<li>').text(`${message.from} - ${message.text}`);
+    $('#messages').append(newest);
 })
 
-// socket.on('welcome', (welcomeMessage)=>{
-//     console.log('Welcome Bro Bro', welcomeMessage.text);
-// });
 
-// socket.on('joined', (newUser) =>{
-//     console.log('someoneJoined',newUser.text);
-// });
+$('#message-form').on('submit', function(e){
+    e.preventDefault()
+    socket.emit('createMessage', {
+        from: 'User',
+        text: $('input[name=message]').val()
+    }, function(data) {
+        console.log('Got it' + data);
+    })
+});
