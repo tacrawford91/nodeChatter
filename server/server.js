@@ -6,7 +6,7 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const {generateMessage} = require('./utils/message')
+const {generateMessage,generateLocationMessage} = require('./utils/message')
 const http = require('http');
 var server = http.createServer(app); 
 const socketIO = require('socket.io');
@@ -27,6 +27,10 @@ io.on('connection',(socket)=> {
         console.log('create Message', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
         callback('This is from the server');
+    });
+
+    socket.on('createLocationMessage', (coords) => {
+        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude))
     });
 
 
