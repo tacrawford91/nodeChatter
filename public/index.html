@@ -8,5 +8,16 @@
 </head>
 <body>
     <p>Get Chatting!</p>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('connect',()=>{
+            console.log('client connected so server!');
+        })
+        socket.on('disconnect', ()=>{
+            console.log('Disconnected from server');
+        })
+    </script>
 </body>
 </html>
