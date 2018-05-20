@@ -10,6 +10,6 @@ const publicPath = path.join(__dirname,'../public');
 
 app.use(express.static(publicPath));
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
 });
